@@ -7,13 +7,14 @@ module.exports = {
   mode: "development",
   devtool: "source-map",
   devServer: {
-    static: path.resolve(__dirname, "src"),
+    static: path.resolve(__dirname, "src/templates"),
+    open: true,
   },
   entry: "./src/scripts/main.js",
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "./scripts/[name]-[contenthash].js",
-    publicPath: "/",
+    publicPath: "../",
   },
   module: {
     rules: [
@@ -28,6 +29,7 @@ module.exports = {
             options: {
               //default: false
               sourceMap: true,
+              url: true,
             },
           },
           {
