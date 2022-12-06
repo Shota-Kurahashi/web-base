@@ -3,18 +3,22 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
+const MODE = "development";
+
+const enabledSourceMap = MODE === "development";
+
 module.exports = {
-  mode: "development",
-  devtool: "source-map",
+  mode: MODE,
+  devtool: enabledSourceMap ? "source-map" : false,
   devServer: {
-    static: path.resolve(__dirname, "src/templates"),
+    static: path.resolve(__dirname, "src"),
     open: true,
   },
   entry: "./src/scripts/main.js",
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "./scripts/[name]-[contenthash].js",
-    publicPath: "../",
+    // publicPath: "../",
   },
   module: {
     rules: [
@@ -27,9 +31,8 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              //default: false
-              sourceMap: true,
-              url: true,
+              sourceMap: enabledSourceMap,
+              url: false,
             },
           },
           {
@@ -40,7 +43,7 @@ module.exports = {
               },
             },
           },
-          "sass-loader",
+          { loader: "sass-loader", options: { sourceMap: enabledSourceMap } },
         ],
       },
       {
@@ -73,7 +76,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/templates/index.html",
-      filename: "templates/index.html",
+      filename: "index.html",
     }),
     new CleanWebpackPlugin(),
   ],
