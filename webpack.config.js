@@ -2,8 +2,11 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const MODE = "development";
+
+const isProduction = MODE === "production";
 
 const enabledSourceMap = MODE === "development";
 
@@ -98,5 +101,10 @@ module.exports = {
       filename: "index.html",
     }),
     new CleanWebpackPlugin(),
+    new TerserPlugin({
+      terserOptions: {
+        compress: { drop_console: isProduction },
+      },
+    }),
   ],
 };
