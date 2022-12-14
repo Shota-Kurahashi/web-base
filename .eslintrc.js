@@ -75,6 +75,7 @@ module.exports = {
     "no-use-before-define": "off",
     "import/prefer-default-export": "off",
     "unused-imports/no-unused-imports": "error",
+    "no-new": "off",
   },
   settings: {
     "import/resolver": {
