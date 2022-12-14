@@ -15,7 +15,7 @@ module.exports = {
     static: path.resolve(__dirname, "src"),
     open: true,
   },
-  entry: "./src/scripts/main.js",
+  entry: "./src/scripts/app.ts",
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "./scripts/[name]-[contenthash].js",
@@ -23,6 +23,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader",
+          },
+        ],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -89,6 +98,9 @@ module.exports = {
         loader: "html-loader",
       },
     ],
+  },
+  resolve: {
+    extensions: [".ts", ".js"],
   },
   plugins: [
     new MiniCssExtractPlugin({
