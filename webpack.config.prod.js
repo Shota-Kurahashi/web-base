@@ -4,13 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
-const MODE = "development";
-const isProduction = MODE === "production";
-const enabledSourceMap = MODE === "development";
-
 module.exports = {
-  mode: MODE,
-  devtool: enabledSourceMap ? "source-map" : false,
+  mode: "production",
+  devtool: false,
   devServer: {
     static: path.resolve(__dirname, "src"),
     open: true,
@@ -51,7 +47,7 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              sourceMap: enabledSourceMap,
+              sourceMap: false,
               url: false,
             },
           },
@@ -63,7 +59,7 @@ module.exports = {
               },
             },
           },
-          { loader: "sass-loader", options: { sourceMap: enabledSourceMap } },
+          { loader: "sass-loader", options: { sourceMap: false } },
         ],
       },
       {
@@ -101,7 +97,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new TerserPlugin({
       terserOptions: {
-        compress: { drop_console: isProduction },
+        compress: { drop_console: true },
       },
     }),
   ],

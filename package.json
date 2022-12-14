@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx webpack server --mode=development",
-    "build": "webpack --mode production",
+    "build": "webpack --config webpack.config.prod.js",
     "build:dev": "webpack",
     "lint": "eslint --fix --ext .jsx,.js,.tsx,.ts ",
     "format": "prettier  \"**/*\" --write --ignore-unknown"
